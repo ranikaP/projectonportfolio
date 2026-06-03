@@ -3,7 +3,7 @@
 A personal portfolio to showcase my projects and skills.
 
 ## 🔗 Live Demo
-[View Portfolio](https://your-firebase-url.web.app)
+[View Portfolio](https://projectonportfolio.web.app)
 
 ## 🛠️ Built With
 - HTML
