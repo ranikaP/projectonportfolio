@@ -1,89 +1,946 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranika P — ECE Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.14.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.14.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.14.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  :root {
+    --white: #ffffff;
+    --off: #f8f9fa;
+    --light: #f1f3f5;
+    --border: #e9ecef;
+    --muted: #adb5bd;
+    --mid: #6c757d;
+    --dark: #212529;
+    --black: #0d0d0d;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --sans: 'Inter', sans-serif;
+    --serif: 'Playfair Display', serif;
+  }
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--black);
+  }
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    padding: 0.5rem 1.2rem;
+    background: var(--accent);
+    color: white !important;
+    border-radius: 6px;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; color: white !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    padding: 10rem 5% 6rem;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--mid);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--mid);
+    line-height: 1.8;
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.8rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--dark);
+    border: 1.5px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero right card */
+  .hero-card {
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .avatar-ring {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    font-family: var(--serif);
+    font-weight: 700;
+  }
+
+  .card-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+  }
+
+  .card-role {
+    font-size: 0.82rem;
+    color: var(--mid);
+    margin-top: 0.1rem;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  .card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem;
+  }
+
+  .stat-n {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.03em;
+  }
+
+  .stat-l {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 0.1rem;
+  }
+
+  .card-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chip {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--mid);
+  }
+  .chip.blue { background: var(--accent-light); color: var(--accent); border-color: #bfdbfe; }
+
+  /* ── SECTIONS SHARED ── */
+  .section {
+    padding: 6rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    padding: 6rem 5%;
+    background: var(--off);
+  }
+
+  .section-full .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    font-size: 1rem;
+    color: var(--mid);
+    max-width: 520px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .section-head { margin-bottom: 3rem; }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 0.97rem;
+    color: var(--mid);
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .about-text p strong { color: var(--dark); font-weight: 600; }
+
+  .about-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .about-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+
+  .about-row-key {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    min-width: 110px;
+  }
+
+  .about-row-val {
+    font-size: 0.9rem;
+    color: var(--dark);
+    text-align: right;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+  }
+  .skill-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    transform: translateY(-3px);
+    border-color: #bfdbfe;
+  }
+
+  .skill-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: var(--light);
+    color: var(--mid);
+  }
+  .stag.accent { background: var(--accent-light); color: var(--accent); }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .cert-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border-color: #bfdbfe;
+  }
+
+  .cert-badge {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .cert-title { font-size: 0.9rem; font-weight: 600; color: var(--black); margin-bottom: 0.2rem; }
+  .cert-by { font-size: 0.78rem; color: var(--accent); font-weight: 500; margin-bottom: 0.15rem; }
+  .cert-date { font-size: 0.73rem; color: var(--muted); }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-date {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 500;
+    padding-top: 0.15rem;
+    line-height: 1.5;
+  }
+  .exp-date strong { display: block; color: var(--dark); font-weight: 600; font-size: 0.82rem; }
+
+  .exp-title { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 0.2rem; }
+  .exp-company { font-size: 0.85rem; color: var(--accent); font-weight: 500; margin-bottom: 0.8rem; }
+  .exp-desc { font-size: 0.9rem; color: var(--mid); line-height: 1.75; font-weight: 300; margin-bottom: 0.8rem; }
+
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .etag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    background: var(--light);
+    color: var(--mid);
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--dark);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(37,99,235,0.08); }
+
+  .cl-icon {
+    width: 38px; height: 38px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .cl-label { font-size: 0.7rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .cl-val { font-size: 0.88rem; font-weight: 500; color: var(--dark); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-group label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: 0.02em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--dark);
+    background: white;
+    outline: none;
+    resize: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-name { font-size: 0.85rem; font-weight: 700; color: var(--black); }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── DIVIDER ── */
+  .page-divider { height: 1px; background: var(--border); margin: 0 5%; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; padding: 8rem 5% 4rem; }
+    .hero-card { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Ranika<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1200px;margin:0 auto;">
+  <section id="hero">
+    <div>
+      <div class="hero-tag">BTech ECE · Kerala, India</div>
+      <h1>Hi, I'm<br><em>Ranika P.</em></h1>
+      <p class="hero-sub">Electronics & Communication Engineer in the making</p>
+      <p class="hero-desc">Passionate about embedded systems, PCB design, and intelligent automation. IEEE student member building at the intersection of hardware and software.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Get in Touch →</a>
+        <a href="#certifications" class="btn btn-ghost">View Certifications</a>
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <div class="hero-card">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="avatar-ring">R</div>
+        <div>
+          <div class="card-name">Ranika P</div>
+          <div class="card-role">BTech ECE · STM Mattannur</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-stats">
+        <div class="stat"><div class="stat-n">6</div><div class="stat-l">Certifications</div></div>
+        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Connections</div></div>
+        <div class="stat"><div class="stat-n">5mo</div><div class="stat-l">Experience</div></div>
+        <div class="stat"><div class="stat-n">2</div><div class="stat-l">Societies</div></div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-chips">
+        <span class="chip blue">IEEE Member</span>
+        <span class="chip blue">ISTE</span>
+        <span class="chip">PCB Design</span>
+        <span class="chip">Robotics</span>
+        <span class="chip">Agentic AI</span>
+      </div>
+    </div>
+  </section>
+</div>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+<div class="page-divider"></div>
+
+<!-- ABOUT -->
+<div class="section-full">
+  <div class="section-inner">
+    <section id="about" class="section" style="padding-top:0;padding-bottom:0;max-width:100%;">
+      <div class="section-head">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">A little about myself</h2>
+        <p class="section-desc">Engineering student, IEEE member, and community builder with a love for hardware and intelligent systems.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm <strong>Ranika P</strong>, a BTech Electronics & Communication Engineering student at St. Thomas College of Engineering & Technology, Sivapuram, Kannur. My core interest lies in <strong>embedded systems, communication hardware, and robotics</strong>.</p>
+          <p>As an <strong>IEEE student member</strong>, I actively participate in workshops, research panels, and technical events spanning computer vision, AI agents, and robotics — constantly expanding my engineering foundation.</p>
+          <p>Beyond academics, I served as <strong>Head of Human Resources at Advisor X</strong>, where I led operations and community engagement, sharpening my leadership and collaboration skills alongside my technical growth.</p>
+        </div>
+        <div class="about-list">
+          <div class="about-row">
+            <div class="about-row-key">Degree</div>
+            <div class="about-row-val">BTech ECE — STM Mattannur</div>
+          </div>
+          <div class="about-row">
+            <div class="about-row-key">Location</div>
+            <div class="about-row-val">Mukundapuram, Kerala</div>
+          </div>
+          <div class="about-row">
+            <div class="about-row-key">Societies</div>
+            <div class="about-row-val">IEEE · ISTE</div>
+          </div>
+          <div class="about-row">
+            <div class="about-row-key">Interests</div>
+            <div class="about-row-val">Embedded · PCB · Robotics · AI</div>
+          </div>
+          <div class="about-row">
+            <div class="about-row-key">Languages</div>
+            <div class="about-row-val">Malayalam · English</div>
+          </div>
+          <div class="about-row">
+            <div class="about-row-key">Status</div>
+            <div class="about-row-val" style="color:var(--accent);font-weight:600;">Open to Opportunities</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- SKILLS -->
+<div class="section" style="max-width:1200px;margin:0 auto;">
+  <section id="skills" style="padding:0;">
+    <div class="section-head">
+      <div class="section-label">Technical Skills</div>
+      <h2 class="section-title">What I work with</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🔌</div>
+        <div class="skill-name">Embedded & Hardware</div>
+        <div class="skill-tags">
+          <span class="stag accent">PCB Design</span>
+          <span class="stag accent">PCB Assembly</span>
+          <span class="stag accent">IoT</span>
+          <span class="stag">Circuit Design</span>
+          <span class="stag">Electronics</span>
+          <span class="stag">Communication Systems</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Robotics & Automation</div>
+        <div class="skill-tags">
+          <span class="stag accent">ROS</span>
+          <span class="stag accent">Robotics</span>
+          <span class="stag">Autonomous Systems</span>
+          <span class="stag">Prototype Building</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-name">AI & Software</div>
+        <div class="skill-tags">
+          <span class="stag accent">Agentic AI</span>
+          <span class="stag accent">Computer Vision</span>
+          <span class="stag accent">C Programming</span>
+          <span class="stag">Python</span>
+          <span class="stag">AI Agents</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">👥</div>
+        <div class="skill-name">Leadership</div>
+        <div class="skill-tags">
+          <span class="stag accent">Team Management</span>
+          <span class="stag accent">Community Relations</span>
+          <span class="stag">HR Operations</span>
+          <span class="stag">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- CERTIFICATIONS -->
+<div class="section-full">
+  <div class="section-inner">
+    <section id="certifications" style="padding:0;">
+      <div class="section-head">
+        <div class="section-label">Credentials</div>
+        <h2 class="section-title">Licenses & Certifications</h2>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-badge">👁️</div>
+          <div>
+            <div class="cert-title">Computer Vision Workshop</div>
+            <div class="cert-by">IEEE LINK</div>
+            <div class="cert-date">Apr 2026 · ID: 101701767</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">🎓</div>
+          <div>
+            <div class="cert-title">Research Panel Discussion — Participant</div>
+            <div class="cert-by">IEEE Education Society (EdSoc)</div>
+            <div class="cert-date">Mar 2026 · ID: 101701767</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">🤖</div>
+          <div>
+            <div class="cert-title">Robotics — Roboroot Connect: Robotics Unplugged</div>
+            <div class="cert-by">IEEE Robotics and Automation Society</div>
+            <div class="cert-date">Feb 2026 · Robotics · ROS</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">🧠</div>
+          <div>
+            <div class="cert-title">Bootcamp on AI Agents (Online)</div>
+            <div class="cert-by">IEEE RAS Kerala Chapter</div>
+            <div class="cert-date">Oct 2025 · Agentic AI Development</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">🔌</div>
+          <div>
+            <div class="cert-title">PCB Design Workshop at NIT Calicut</div>
+            <div class="cert-by">Tathva NIT Calicut</div>
+            <div class="cert-date">Oct 2025 · PCB Design · Assembly</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">⚙️</div>
+          <div>
+            <div class="cert-title">IEEE Student Member</div>
+            <div class="cert-by">IEEE</div>
+            <div class="cert-date">Active Membership · ECE Branch</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- EXPERIENCE -->
+<div class="section" style="max-width:1200px;margin:0 auto;">
+  <section id="experience" style="padding:0;">
+    <div class="section-head">
+      <div class="section-label">Work Experience</div>
+      <h2 class="section-title">Where I've contributed</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-date">
+          <strong>Jun 2026 (Upcoming)</strong>
+          14-Day Program
+        </div>
+        <div>
+          <div class="exp-title">Edge IoT & Smart Automation Intern</div>
+          <div class="exp-company">IEEE SB GCEK × Usizo Solutions Pvt. Ltd · Govt. College of Engineering, Kannur</div>
+          <div class="exp-desc">Selected for an intensive 14-day internship bridging theoretical code and physical hardware. Program covers 5 days of Online Simulation, 5 days of Offline Hardware Deployment at GCEK, and 4 days of Independent Remote Project Work. Focus areas include Cloud Telemetry, Edge Machine Learning, and Custom PCB Routing. Culminates in a Phase 3 Final Project submitted to GitHub.</div>
+          <div class="exp-tags">
+            <span class="etag">IoT</span>
+            <span class="etag">Edge ML</span>
+            <span class="etag">Cloud Telemetry</span>
+            <span class="etag">PCB Routing</span>
+            <span class="etag">Hardware Deployment</span>
+            <span class="etag">IEEE SB GCEK</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">
+          <strong>Dec 2025 – Feb 2026</strong>
+          3 months · Full-time
+        </div>
+        <div>
+          <div class="exp-title">Head of Human Resources</div>
+          <div class="exp-company">Advisor X – Growth</div>
+          <div class="exp-desc">Led HR and operations for a startup-focused community, overseeing team building, onboarding, and community health. Supported founders, students, and mentors in a collaborative ecosystem focused on growth and innovation.</div>
+          <div class="exp-tags">
+            <span class="etag">Community Relations</span>
+            <span class="etag">HR Management</span>
+            <span class="etag">Team Leadership</span>
+            <span class="etag">Operations</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">
+          <strong>Oct 2025 – Dec 2025</strong>
+          3 months · Full-time
+        </div>
+        <div>
+          <div class="exp-title">Community Coordinator</div>
+          <div class="exp-company">Advisor X – Growth</div>
+          <div class="exp-desc">Supported growth and engagement of a startup-focused community by connecting founders with mentors, organising events, and nurturing peer-to-peer collaboration across the network.</div>
+          <div class="exp-tags">
+            <span class="etag">Team Management</span>
+            <span class="etag">Critical Thinking</span>
+            <span class="etag">Community Growth</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- CONTACT -->
+<div class="section-full">
+  <div class="section-inner">
+    <section id="contact" style="padding:0;">
+      <div class="section-head">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's connect</h2>
+        <p class="section-desc">Open to internships, research collaborations, and IEEE community projects. Always happy to learn and build together.</p>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/ranikap" target="_blank" class="contact-link">
+              <div class="cl-icon">💼</div>
+              <div>
+                <div class="cl-label">LinkedIn</div>
+                <div class="cl-val">linkedin.com/in/ranikap</div>
+              </div>
+            </a>
+            <a href="mailto:renikarajeev890@gmail.com" class="contact-link">
+              <div class="cl-icon">✉️</div>
+              <div>
+                <div class="cl-label">Email</div>
+                <div class="cl-val">renikarajeev890@gmail.com</div>
+              </div>
+            </a>
+            <a href="https://github.com/ranikaP" target="_blank" class="contact-link">
+              <div class="cl-icon">🐙</div>
+              <div>
+                <div class="cl-label">GitHub</div>
+                <div class="cl-val">github.com/ranikaP</div>
+              </div>
+            </a>
+            <div class="contact-link">
+              <div class="cl-icon">📍</div>
+              <div>
+                <div class="cl-label">Location</div>
+                <div class="cl-val">Mukundapuram, Kerala, India</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Jane Smith">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="jane@example.com">
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="4" placeholder="Tell me about the opportunity…"></textarea>
+          </div>
+          <button class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Ranika P</div>
+  <div class="footer-copy">© 2026 · BTech ECE · Kerala, India</div>
+</footer>
+
+</body>
 </html>
